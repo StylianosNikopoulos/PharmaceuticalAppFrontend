@@ -1,0 +1,11 @@
+/* Global styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+a,
+a:visited {
+color: inherit; /* Use this to prevent the visited link from changing color */
+text-decoration: none; /* Optional: To prevent underline if applied */
+}
