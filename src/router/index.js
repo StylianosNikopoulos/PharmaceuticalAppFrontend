@@ -14,8 +14,9 @@ const router = createRouter({
       },
       {
         path: '/products/:id',
-        name: 'product',
+        name: 'product-details',
         component: ProductComponent,
+        props: route => ({ productId: route.params.id })
       },
      
       {
