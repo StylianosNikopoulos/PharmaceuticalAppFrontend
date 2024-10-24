@@ -83,7 +83,7 @@ export default {
         try {
           await axios.delete(`http://localhost/api/products/${productId}`);
           toastr.success('Product deleted successfully!');
-          this.fetchProducts(); 
+          this.$router.push({ name: 'products' });
         } catch (error) {
           console.error("Error deleting product:", error);
         }
