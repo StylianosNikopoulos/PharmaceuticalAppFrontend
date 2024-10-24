@@ -71,11 +71,11 @@ export default {
   },
 
   methods: {
-    navigateToAddProduct() {
-      this.$emit('navigate', { type: 'add' });
-    },
     editProduct(product) {
-      this.$emit('navigate', { type: 'edit', product });
+      this.$router.push({
+        name: 'edit-product',
+        params: { productId: product.id },
+      })
     },
     async deleteProduct(productId) {
       const userConfirmed = confirm('Are you sure you want to delete this product?');
