@@ -30,6 +30,7 @@
 
 <script>
 import ProductListComponent from '../components/ProductListComponent.vue';
+import axios from "axios";
 
 export default {
    
@@ -50,18 +51,9 @@ export default {
             
             try {
                 // Make the fetch request
-                const response = await fetch('http://localhost/api/products');
-                
-                // Check if the response is OK (status code 200-299)
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                
-                // Parse the response data as JSON
-                const data = await response.json();
-                
+                const response = await axios.get('http://localhost/api/products');
                 // Update the products array with the fetched data
-                this.products = data.products;
+                this.products = response.data.products
             } catch (error) {
                 // If there was an error, set the error message
                 this.errored = true;
