@@ -1,6 +1,6 @@
 <template>
     <div v-if="product">
-      <h2>Edit Product: {{ product.name }}</h2>
+      <h2>Edit Product: {{ productName }}</h2>
       <form @submit.prevent="submitEdit">
         <label for="name">Name</label>
         <input v-model="product.name" type="text" id="name" required>
@@ -60,6 +60,7 @@
       return {
         product: null,
         loading: true,
+        productName:""
       };
     },
     mounted() {
@@ -70,6 +71,7 @@
         try {
           const response = await axios.get(`http://localhost/api/products/${this.productId}`);
           this.product = response.data.product;
+          this.productName = this.product.name;
         } catch (error) {
           toastr.error('Error fetching product. Please try again.');
           console.error('Error fetching product:', error);

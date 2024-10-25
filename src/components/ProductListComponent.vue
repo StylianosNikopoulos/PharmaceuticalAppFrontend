@@ -1,6 +1,6 @@
 <template>
     <section class="product-list">
-        <h3>Product List Component</h3>
+        <h3>Product List</h3>
 
         <section v-if="errored">
             <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>

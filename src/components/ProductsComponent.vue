@@ -88,8 +88,14 @@ export default {
 
     }
 
+    .product-list {
+        display: flex;
+        /* justify-content: space-between; */
+        min-width: 30%;
+    }
+
     .product-options {
         margin-left: calc(8% + 0.75rem);
-        width: 60%;
+        width: 30%;
     }
 </style>
