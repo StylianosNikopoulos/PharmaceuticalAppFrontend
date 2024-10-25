@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import ProductsComponent from '../components/ProductsComponent.vue'
 import ProductComponent from '../components/ProductComponent.vue'
 import AddProductComponent from '../components/AddProductComponent.vue'
-import EditProductComponents from '../components/EditProductComponents.vue'
+import EditProductComponent from '../components/EditProductComponent.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,7 +28,7 @@ const router = createRouter({
       {
         path: '/products/edit/:id',
         name: 'edit-product',
-        component: EditProductComponents,
+        component: EditProductComponent,
         props: route => ({ productId: route.params.id })
       }
   ],
