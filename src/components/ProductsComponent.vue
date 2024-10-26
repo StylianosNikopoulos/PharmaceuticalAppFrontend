@@ -98,4 +98,22 @@ export default {
         margin-left: calc(8% + 0.75rem);
         width: 30%;
     }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        height: 40px; 
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1em;
+        background-color: #f9f9f9;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        box-sizing: border-box; 
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
 </style>

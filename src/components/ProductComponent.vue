@@ -1,4 +1,5 @@
 <template>
+  <back-button :text="'Back to Product List'"/>
   <div class="products-container" v-if="product">
     <h2 class="product-title">
     Selected Product: <span class="underline"> {{ product.name }} </span>
@@ -21,13 +22,14 @@
         <tr>
           <td>{{ product.name }}</td>
           <td>{{ product.category }}</td>
-          <td>{{ product.active_ingredients }}</td>
+          <!-- <td>{{ product.active_ingredients }}</td> -->                                <!-- Uncomment This-->
+          <td ><ingredient-list-component :ingredients="product.active_ingredients"/></td>  <!-- Remove This-->
           <td>{{ product.batch_number }}</td>
           <td>
             <span :class="getStatusClass(product.status)">{{ product.status }}</span>
           </td>
-          <td>{{ product.manufacturing_date }}</td>
-          <td>{{ product.expiration_date }}</td>
+          <td class="date-collumn">{{ product.manufacturing_date }}</td>
+          <td class="date-collumn">{{ product.expiration_date }}</td>
           <td>
             <button class="edit-btn" @click="editProduct(product)">Edit</button>
             <button class="delete-btn" @click="deleteProduct(product.id)">Delete</button>
@@ -50,8 +52,14 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css'; 
+import IngredientListComponent from './IngredientListComponent.vue';
+import BackButton from './BackButton.vue';
 
 export default {
+  components:{
+        IngredientListComponent,
+        BackButton
+    },
   data() {
     return {
       product: null,
@@ -162,6 +170,9 @@ td {
 
 tr:hover td {
   background-color: #e9ecef; 
+}
+.date-collumn {
+  white-space: nowrap;
 }
 
 .edit-btn, .delete-btn {

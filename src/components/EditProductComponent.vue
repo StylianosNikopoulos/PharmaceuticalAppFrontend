@@ -1,4 +1,5 @@
 <template>
+  <back-button :urlTo="`/products/${productId}`" :text="`Back to product details`"/>
   <div class="container">
     <div v-if="product" class="card">
       <h2>Edit Product: <span class="underline"> {{ productName }} </span></h2>
@@ -19,7 +20,8 @@
 
         <div class="form-group">
           <label for="active_ingredients">Active Ingredients</label>
-          <input v-model="product.active_ingredients" type="text" id="active_ingredients" required />
+          <!-- <input v-model="product.active_ingredients" type="text" id="active_ingredients" required /> --> <!-- Uncomment This-->
+          <textarea v-model="product.active_ingredients" id="active_ingredients" rows="5" required ></textarea> <!-- Remove This-->
         </div>
 
         <div class="form-group">
@@ -65,8 +67,12 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
+import BackButton from './BackButton.vue';
 
 export default {
+  components:{
+        BackButton
+    },
   props: {
     productId: {
       type: String,
@@ -119,7 +125,6 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to right, #f0f2f5, #e0e7ff);
 }
 
 .card {
@@ -157,6 +162,7 @@ label {
 }
 
 input,
+textarea,
 select {
   width: 100%;
   padding: 10px;
@@ -169,7 +175,14 @@ select {
   box-sizing: border-box; 
 }
 
+textarea {
+  height: 80px; 
+  font-family: inherit;
+  font-size: inherit;
+}
+
 input:focus,
+textarea:focus,
 select:focus {
   outline: none;
   border-color: #007bff;
