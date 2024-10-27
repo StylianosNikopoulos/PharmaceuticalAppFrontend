@@ -1,5 +1,5 @@
 <template>
-  <back-button :urlTo="`/products/${productId}`" :text="`Back to product details`" />
+  <back-button :urlTo="`/`" :text="`Back to Product List`" />
   <div class="container">
     <div class="card">
       <h2>Add New Product</h2>
