@@ -224,6 +224,14 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 .add-product-section {
   padding: 2rem 0;
 }
