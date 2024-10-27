@@ -101,7 +101,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchProduct(); // Fetch the current product details when the component is mounted
+    this.fetchProduct(); 
   },
   methods: {
     async fetchProduct() {
@@ -117,7 +117,6 @@ export default {
       }
     },
     async submitEdit() {
-      // Reset errors
       this.errors = [];
       this.generalError = '';
 
@@ -128,7 +127,7 @@ export default {
 
       if (this.errors.length > 0) {
         toastr.error('Please fix the validation errors below.', 'Validation Error');
-        return; // Stop submission if there are validation errors
+        return;
       }
 
       this.isSubmitting = true;
@@ -140,9 +139,7 @@ export default {
       } catch (error) {
         console.error('Error updating product:', error);
         if (error.response) {
-          // Server responded with a status other than 2xx
           if (error.response.status === 422) {
-            // Validation errors from the backend
             const backendErrors = error.response.data.errors;
             this.errors = [];
 
@@ -155,16 +152,13 @@ export default {
             }
             toastr.error('Please fix the validation errors below.', 'Validation Error');
           } else {
-            // Other server errors
             this.generalError = error.response.data.message || 'An error occurred while updating the product.';
             toastr.error(this.generalError, 'Error');
           }
         } else if (error.request) {
-          // No response received from server
           this.generalError = 'No response from server. Please try again later.';
           toastr.error(this.generalError, 'Error');
         } else {
-          // Other errors
           this.generalError = 'An unexpected error occurred.';
           toastr.error(this.generalError, 'Error');
         }

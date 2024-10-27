@@ -144,16 +144,12 @@ export default {
       'Completed',
     ];
 
-    // Submission state
     const isSubmitting = ref(false);
 
-    // Error messages
     const errors = ref([]);
     const generalError = ref('');
 
-    // Handle form submission
     const handleSubmit = async () => {
-      // Reset errors
       errors.value = [];
       generalError.value = '';
 
@@ -167,7 +163,7 @@ export default {
 
       try {
         const response = await axios.post(
-          'http://localhost/api/products', // Ensure this URL matches your Laravel server
+          'http://localhost/api/products', 
           form.value,
           {
             headers: {
@@ -178,7 +174,7 @@ export default {
 
         if (response.status === 201) {
           toastr.success('Product added successfully!', 'Success');
-          router.push({ name: 'products' }); // Adjust the route name as per your router configuration
+          router.push({ name: 'products' }); 
         } else {
           toastr.error('Failed to add product. Please try again.', 'Error');
         }
