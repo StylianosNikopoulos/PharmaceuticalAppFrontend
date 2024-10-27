@@ -1,8 +1,8 @@
 <template>
-  <section class="add-product-section">
-    <div class="container">
-      <h2>Add New Research Drug</h2>
-
+  <back-button :urlTo="`/`" :text="`Back to Product List`" />
+  <div class="container">
+    <div class="card">
+      <h2>Add New Product</h2>
       <!-- Display Validation Errors -->
       <div v-if="errors.length" class="error-messages">
         <ul>
@@ -15,12 +15,10 @@
         <p>{{ generalError }}</p>
       </div>
 
-      <form @submit.prevent="handleSubmit" class="product-form">
+      <form @submit.prevent="handleSubmit">
         <!-- Product Name -->
         <div class="form-group">
-          <label for="name">
-            Product Name<span class="required">*</span>
-          </label>
+          <label for="name">Product Name<span class="required">*</span></label>
           <input
             type="text"
             id="name"
@@ -32,9 +30,7 @@
 
         <!-- Category -->
         <div class="form-group">
-          <label for="category">
-            Category<span class="required">*</span>
-          </label>
+          <label for="category">Category<span class="required">*</span></label>
           <select id="category" v-model="form.category" required>
             <option value="" disabled>Select category</option>
             <option v-for="category in categoryOptions" :key="category" :value="category">
@@ -45,9 +41,7 @@
 
         <!-- Active Ingredients -->
         <div class="form-group">
-          <label for="active_ingredients">
-            Active Ingredients<span class="required">*</span>
-          </label>
+          <label for="active_ingredients">Active Ingredients<span class="required">*</span></label>
           <textarea
             id="active_ingredients"
             v-model="form.active_ingredients"
@@ -58,9 +52,7 @@
 
         <!-- Batch Number -->
         <div class="form-group">
-          <label for="batch_number">
-            Batch Number<span class="required">*</span>
-          </label>
+          <label for="batch_number">Batch Number<span class="required">*</span></label>
           <input
             type="text"
             id="batch_number"
@@ -72,9 +64,7 @@
 
         <!-- Status -->
         <div class="form-group">
-          <label for="status">
-            Research Status<span class="required">*</span>
-          </label>
+          <label for="status">Research Status<span class="required">*</span></label>
           <select id="status" v-model="form.status" required>
             <option value="" disabled>Select status</option>
             <option v-for="status in statusOptions" :key="status" :value="status">
@@ -85,9 +75,7 @@
 
         <!-- Manufacturing Date -->
         <div class="form-group">
-          <label for="manufacturing_date">
-            Manufacturing Date<span class="required">*</span>
-          </label>
+          <label for="manufacturing_date">Manufacturing Date<span class="required">*</span></label>
           <input
             type="date"
             id="manufacturing_date"
@@ -98,9 +86,7 @@
 
         <!-- Expiration Date -->
         <div class="form-group">
-          <label for="expiration_date">
-            Expiration Date<span class="required">*</span>
-          </label>
+          <label for="expiration_date">Expiration Date<span class="required">*</span></label>
           <input
             type="date"
             id="expiration_date"
@@ -110,14 +96,12 @@
         </div>
 
         <!-- Submit Button -->
-        <div class="form-group">
-          <button type="submit" :disabled="isSubmitting">
-            {{ isSubmitting ? 'Submitting...' : 'Add Product' }}
-          </button>
-        </div>
+        <button type="submit" :disabled="isSubmitting">
+          {{ isSubmitting ? 'Submitting...' : 'Add Product' }}
+        </button>
       </form>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -126,8 +110,12 @@ import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import BackButton from './BackButton.vue';
 
 export default {
+  components: {
+    BackButton
+  },
   name: 'AddProductComponent',
   setup() {
     const router = useRouter();
@@ -156,28 +144,18 @@ export default {
       'Completed',
     ];
 
-    // Submission state
     const isSubmitting = ref(false);
 
-    // Error messages
     const errors = ref([]);
     const generalError = ref('');
 
-    // Handle form submission
     const handleSubmit = async () => {
-      // Reset errors
       errors.value = [];
       generalError.value = '';
 
       // Basic front-end validation
-      if (
-        new Date(form.value.expiration_date) <=
-        new Date(form.value.manufacturing_date)
-      ) {
-        toastr.error(
-          'Expiration date must be after manufacturing date.',
-          'Validation Error'
-        );
+      if (new Date(form.value.expiration_date) <= new Date(form.value.manufacturing_date)) {
+        toastr.error('Expiration date must be after manufacturing date.', 'Validation Error');
         return;
       }
 
@@ -185,7 +163,7 @@ export default {
 
       try {
         const response = await axios.post(
-          'http://localhost/api/products', // Ensure this URL matches your Laravel server
+          'http://localhost/api/products', 
           form.value,
           {
             headers: {
@@ -196,7 +174,7 @@ export default {
 
         if (response.status === 201) {
           toastr.success('Product added successfully!', 'Success');
-          router.push({ name: 'products' }); // Adjust the route name as per your router configuration
+          router.push({ name: 'products' }); 
         } else {
           toastr.error('Failed to add product. Please try again.', 'Error');
         }
@@ -204,9 +182,7 @@ export default {
         console.error('Error adding product:', error);
 
         if (error.response) {
-          // Server responded with a status other than 2xx
           if (error.response.status === 422) {
-            // Validation errors
             const backendErrors = error.response.data.errors;
             errors.value = [];
 
@@ -217,25 +193,15 @@ export default {
                 });
               }
             }
-
-            toastr.error(
-              'Please fix the validation errors below.',
-              'Validation Error'
-            );
+            toastr.error('Please fix the validation errors below.', 'Validation Error');
           } else {
-            // Other server errors
-            generalError.value =
-              error.response.data.message ||
-              'An error occurred while adding the product.';
+            generalError.value = error.response.data.message || 'An error occurred while adding the product.';
             toastr.error(generalError.value, 'Error');
           }
         } else if (error.request) {
-          // No response received from server
-          generalError.value =
-            'No response from server. Please try again later.';
+          generalError.value = 'No response from server. Please try again later.';
           toastr.error(generalError.value, 'Error');
         } else {
-          // Other errors
           generalError.value = 'An unexpected error occurred.';
           toastr.error(generalError.value, 'Error');
         }
@@ -262,86 +228,87 @@ export default {
   padding: 2rem 0;
 }
 
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.card {
+  max-width: 500px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 h2 {
+  color: #333;
+  font-size: 1.8em;
+  margin-bottom: 1.5em;
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #094ee2;
-}
-
-.product-form {
-  display: flex;
-  flex-direction: column;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1em;
 }
 
-.form-group label {
+label {
   display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  color: #333333;
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 0.3em;
 }
 
-.required {
-  color: red;
-  margin-left: 0.25rem;
-}
-#category {
-width : 556px;
-max-width : 556px;
-}
-#status {
-width : 556px;
-max-width : 556px;
-}
-.form-group input[type='text'],
-.form-group input[type='date'],
-.form-group select,
-.form-group textarea {
-  width: 90%;
-  padding: 0.5rem;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  font-size: 1rem;
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: #f9f9f9;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
 }
 
-.form-group textarea {
-  resize: vertical;
-  height: 100px;
+textarea {
+  height: 80px;
+  font-family: inherit;
+  font-size: inherit;
 }
 
-.form-group button {
-  padding: 0.75rem;
-  background-color: #094ee2;
-  color: #ffffff;
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 1.5em;
+  background-color: #007bff;
+  color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-group button:hover {
-  background-color: #072b9b;
+button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 5px 15px rgba(0, 91, 179, 0.3);
 }
 
-.form-group button:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
-
-/* Error Messages */
 .error-messages {
   background-color: #f8d7da;
   color: #721c24;
@@ -352,43 +319,21 @@ max-width : 556px;
 }
 
 .error-messages ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .general-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background-color: #ffeeba;
+  color: #856404;
+  border: 1px solid #ffeeba;
   padding: 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;
 }
-@media (max-width:611px){
 
-/* Category */
-#category{
- width:475px !important;
-}
-
-/* Status */
-#status{
- width:466px !important;
-}
-
-}
-
-@media (max-width:481px){
-
-/* Category */
-#category{
- width:313px !important;
-}
-
-/* Status */
-#status{
- width:311px !important;
-}
-
+.required {
+  color: red;
 }
 </style>
