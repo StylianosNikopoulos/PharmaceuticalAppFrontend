@@ -260,7 +260,6 @@ export default {
 <style scoped>
 .add-product-section {
   padding: 2rem 0;
-  background-color: #f8f9fa;
 }
 
 .container {

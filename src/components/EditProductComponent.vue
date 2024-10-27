@@ -1,5 +1,5 @@
 <template>
-  <back-button :urlTo="`/products/${productId}`" :text="`Back to product details`"/>
+  <back-button :urlTo="`/products/${productId}`" :text="`Back to Product Details`"/>
   <div class="container">
     <div v-if="product" class="card">
       <h2>Edit Product: <span class="underline"> {{ productName }} </span></h2>
