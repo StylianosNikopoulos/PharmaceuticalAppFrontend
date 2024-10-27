@@ -33,8 +33,8 @@
           <label for="category">Category<span class="required">*</span></label>
           <select id="category" v-model="form.category" required>
             <option value="" disabled>Select category</option>
-            <option v-for="category in categoryOptions" :key="category" :value="category">
-              {{ category }}
+            <option v-for="category in categoryOptions" :key="category.value" :value="category.value">
+              {{ category.name }}
             </option>
           </select>
         </div>
@@ -67,8 +67,8 @@
           <label for="status">Research Status<span class="required">*</span></label>
           <select id="status" v-model="form.status" required>
             <option value="" disabled>Select status</option>
-            <option v-for="status in statusOptions" :key="status" :value="status">
-              {{ status }}
+            <option v-for="status in statusOptions" :key="status.value" :value="status.value">
+              {{ status.name }}
             </option>
           </select>
         </div>
@@ -133,15 +133,15 @@ export default {
 
     // Options for select fields
     const categoryOptions = [
-      'Tablet',
-      'Capsule',
-      'Injection',
+      {name:'Tablet', value:'tablet'},
+      {name:'Injection', value:'injection'},
+      {name:'Capsule', value:'capsule'},
     ];
 
     const statusOptions = [
-      'Under Development',
-      'In Clinical Trials',
-      'Completed',
+    {name:'Under Development', value:'under development'},
+    {name:'In Clinical Trials', value:'in clinical trials'},
+    {name:'Completed', value:'completed'},
     ];
 
     const isSubmitting = ref(false);
