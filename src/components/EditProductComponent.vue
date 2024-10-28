@@ -121,16 +121,6 @@ export default {
       this.errors = [];
       this.generalError = '';
 
-      // Basic front-end validation
-      if (new Date(this.product.expiration_date) <= new Date(this.product.manufacturing_date)) {
-        this.errors.push('Expiration date must be after manufacturing date.');
-      }
-
-      if (this.errors.length > 0) {
-        toastr.error('Please fix the validation errors below.', 'Validation Error');
-        return; // Stop submission if there are validation errors
-      }
-
       this.isSubmitting = true;
 
       try {
@@ -185,6 +175,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  margin-bottom: 54px;
 }
 
 .card {
