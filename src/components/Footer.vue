@@ -1,36 +1,40 @@
 <template>
-   
-    <footer class="footer">
-      <div class="footer-content">
-        <p>&copy; 2024 Code.Hub. All rights reserved.</p>
-      </div>
-    </footer>
-  </template>
-  
-  <script>
-  export default {
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2024 Code.Hub. All rights reserved.</p>
+    </div>
+  </footer>
+</template>
 
-  };
-  </script>
-  
-  <style scoped>
+<script>
+export default {};
+</script>
 
-  .footer {
+<style scoped>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-    color: #094ee2;
-    padding: 2px;
-    font-size: 8px;
-    border-top: 1px solid #e1e2f5;
-  }
-  
-  .footer-content {
-    display: flex;
-    max-width: 1280px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 8px;
-    padding-right: 8px;
-  }
+/* Footer styles */
+.footer {
+  color: #094ee2;
+  font-size: 12px;
+  border-top: 1px solid #e1e2f5;
+  padding: 2px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: white; 
+}
 
-  </style>
-  
+.footer-content {
+  display: flex;
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 8px;
+  justify-content: center; 
+}
+</style>
