@@ -24,6 +24,7 @@
             id="name"
             v-model="form.name"
             required
+            autocomplete="off"
             placeholder="Enter product name"
           />
         </div>

@@ -126,7 +126,7 @@ export default {
       try {
         const response = await axios.put(`http://localhost/api/products/${this.productId}`, this.product);
         toastr.success('Product updated successfully!');
-        this.$router.push('/'); // Navigate back to the product list after successful update
+        this.$router.push(`/products/${this.productId}`); // Navigate back to the product list after successful update
       } catch (error) {
         console.error('Error updating product:', error);
         if (error.response) {
